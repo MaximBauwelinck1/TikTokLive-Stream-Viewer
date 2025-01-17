@@ -67,6 +67,7 @@ public class TikTokController implements Subject {
 
     public void startStreaming(){
         TikTokLive.newClient(streamerID).onGift((_, event) ->{
+           //System.out.println(event.getUser().getProfileName());
             subject.firePropertyChange("gift", null, 
             event);
             donateEvent();
