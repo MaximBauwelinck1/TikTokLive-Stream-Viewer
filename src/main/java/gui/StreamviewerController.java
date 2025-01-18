@@ -8,17 +8,14 @@ import DTO.DonatieDTO;
 import domein.DomeinController;
 import domein.DonationObersver;
 import domein.ImageConverter;
-import domein.Subject;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 

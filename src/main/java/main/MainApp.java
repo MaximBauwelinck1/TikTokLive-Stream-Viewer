@@ -30,15 +30,16 @@ public class MainApp extends Application {
 
         primaryStage.setX(bounds.getMinX());
         primaryStage.setY(bounds.getMinY());
-        primaryStage.setWidth(1200); // bounds.getWidth()
-        primaryStage.setHeight(850);//bounds.getHeight()
+        primaryStage.setWidth(625); // bounds.getWidth()
+        primaryStage.setHeight(420);//bounds.getHeight()
         
         Scene scene = new Scene(welkomScherm);
         scene.setFill(Color.RED);
         
-        
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
+        
     }
 
     static void setRoot(String fxml) throws IOException {
