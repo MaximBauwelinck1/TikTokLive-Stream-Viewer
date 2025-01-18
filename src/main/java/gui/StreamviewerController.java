@@ -16,7 +16,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.OverrunStyle;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
@@ -36,6 +38,9 @@ public class StreamviewerController extends BorderPane implements PropertyChange
 
     @FXML
     private ImageView imageDonatieUser;
+    @FXML
+    private TextArea txtLeaderboard;
+
     private Boolean toontDonatie = false;
     public StreamviewerController(DomeinController dc){
 
@@ -58,6 +63,8 @@ public class StreamviewerController extends BorderPane implements PropertyChange
         lblRoomId.setText("room ID: 0");
         lblDonatie.setText("");
         lblDonatie.setWrapText(true);
+        txtLeaderboard.setText("");
+        txtLeaderboard.setStyle(null);
     }
  
 
@@ -127,6 +134,7 @@ public class StreamviewerController extends BorderPane implements PropertyChange
 }
     @Override
     public void handleDonate() {
+        txtLeaderboard.setText(dc.getTopTienVanLeaderboard());
        if(!dc.isDonatiesEmpty()&& !toontDonatie){
         toontDonatie= true;
         Platform.runLater(() -> {

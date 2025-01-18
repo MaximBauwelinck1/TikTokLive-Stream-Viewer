@@ -30,8 +30,8 @@ public class MainApp extends Application {
 
         primaryStage.setX(bounds.getMinX());
         primaryStage.setY(bounds.getMinY());
-        primaryStage.setWidth(1000); // bounds.getWidth()
-        primaryStage.setHeight(650);//bounds.getHeight()
+        primaryStage.setWidth(1200); // bounds.getWidth()
+        primaryStage.setHeight(850);//bounds.getHeight()
         
         Scene scene = new Scene(welkomScherm);
         scene.setFill(Color.RED);

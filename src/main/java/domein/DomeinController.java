@@ -5,6 +5,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -47,6 +48,27 @@ public class DomeinController implements PropertyChangeListener {
       donaties.add(don);
     }
 
+    public String getTopTienVanLeaderboard(){
+      StringBuilder str = new StringBuilder();
+      final AtomicInteger rank = new AtomicInteger(1);
+      final AtomicInteger counter = new AtomicInteger(LENGTE_LEADERBOARD);
+      leaderboard.entrySet().stream().sorted((e1, e2) -> e2.getKey().compareTo(e1.getKey())).forEachOrdered(e->{e.getValue().forEach(user->{
+        if(counter.get()>0){
+          String naamuser = user.getProfileName();
+          if (naamuser.length() > 27) {
+            naamuser = naamuser.substring(0, 24) + "..."; // voeg ... toe als naam te lang is
+        } else {
+            naamuser = String.format("%-27s", naamuser); // Pad de naam met whitespace rechts
+        }
+          naamuser = String.format("%-27s", naamuser);// add whitespace to  the right
+          str.append(String.format("%d %s %d %n",rank.get(), naamuser,e.getKey()));
+          counter.decrementAndGet();
+        }
+      });
+      rank.incrementAndGet();
+    });
+    return str.toString();
+    }
     public Boolean isDonatiesEmpty(){
       return donaties.peek() == null;
     }
@@ -55,7 +77,7 @@ public class DomeinController implements PropertyChangeListener {
       return  new DonatieDTO(d.getNameGift(), d.getGiftImage(), d.getFromUser(), d.getUserImage());
     }
     private void handleLeaderBoardUpdate(TikTokGiftEvent ev){
-      if (leaderboard.values().stream().flatMap(List::stream).map(User::getId).collect(Collectors.toList()).contains(ev.getUser().getId())){
+      if (leaderboard.values().stream().flatMap(List::stream).map(User::getId).collect(Collectors.toList()).contains(ev.getUser().getId())){ // in case somebody donated who is already on the leaderboard
         System.out.println("HEEFT AL GEDONEERD!!");
         System.out.println(ev.getUser().getProfileName());
         System.out.println("HEEFT AL GEDONEERD!!");
@@ -78,11 +100,11 @@ public class DomeinController implements PropertyChangeListener {
         if (leaderboard.get(rank).isEmpty()) { // in case rank is empty 
             leaderboard.remove(rank); // TODO dit veroorzaakt misch bug?
         } 
-      } else if(leaderboard.size()<LENGTE_LEADERBOARD && leaderboard.get(ev.getGift().getDiamondCost() ) == null){ // leaderboard is not full yet and postion is empty so first user with this rank
+      } else if( leaderboard.get(ev.getGift().getDiamondCost() ) == null){ // leaderboard is not full yet and postion is empty so first user with this rank
         List<User> lijst = new ArrayList<User>();
         lijst.add(ev.getUser());
         leaderboard.put(ev.getGift().getDiamondCost(), lijst);
-      } else if(leaderboard.size()<LENGTE_LEADERBOARD && leaderboard.get(ev.getGift().getDiamondCost() ) != null){ // leaderboard is not full yet but this postion ha been filled ye
+      } else if( leaderboard.get(ev.getGift().getDiamondCost() ) != null){ // leaderboard is not full yet but this postion ha been filled ye
         leaderboard.get(ev.getGift().getDiamondCost()).add(ev.getUser());
       }
       // TODO in geval leaderboard vol is kijken of diamonds hoger is dan laagste
