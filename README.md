@@ -1,5 +1,6 @@
 # TikTokLive-Stream-Viewer
-An GUI to view any live stream and view its events. This is intended from streamers who can open the application on an second monitor or even a big screen behind them. It will show live donations, an leaderboard op the top donators and other specifc information. 
+An GUI to view any live stream and view its events. This is intended from streamers who can open the application on an second monitor or even a big screen behind them. It will show live donations, an leaderboard op the top donators and other specifc information.
+The image below provides a temporary preview of the application.
 ![image](https://github.com/user-attachments/assets/0f236d29-48f9-46d8-a12c-9ae6be9bb59a)
 
 **Disclaimer** everything here is subject to change.
