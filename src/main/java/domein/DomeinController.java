@@ -60,7 +60,6 @@ public class DomeinController implements PropertyChangeListener {
         } else {
             naamuser = String.format("%-27s", naamuser); // Pad de naam met whitespace rechts
         }
-          naamuser = String.format("%-27s", naamuser);// add whitespace to  the right
           str.append(String.format("%d %s %d %n",rank.get(), naamuser,e.getKey()));
           counter.decrementAndGet();
         }

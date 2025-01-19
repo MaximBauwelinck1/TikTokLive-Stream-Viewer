@@ -3,6 +3,7 @@ package gui;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.io.InputStream;
 
 import DTO.DonatieDTO;
 import domein.DomeinController;
@@ -17,7 +18,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
+import main.MainApp;
 
 public class StreamviewerController extends BorderPane implements PropertyChangeListener, DonationObersver{
     private DomeinController dc;
@@ -44,8 +47,13 @@ public class StreamviewerController extends BorderPane implements PropertyChange
         loadFxmlScreen("StreamViewer.fxml", dc);
         this.dc.addPropertyChangeListener(this);
         dc.addDonationObserver(this);
+        this.getStylesheets().add(getClass().getResource("/css/Streamviewer.css").toExternalForm());
     }
        private void loadFxmlScreen(String name, DomeinController dc) {
+       //Courier_Prime_Bold.ttf
+       //UbuntuMono-B.ttf
+       //FantasqueSansMono-Bold.ttf
+       Font font1 = Font.loadFont(getClass().getResource("/fonts/NotCourierSans-Bold.otf").toExternalForm(), 12);
     	this.dc = dc;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(name));
 		loader.setRoot(this);
@@ -61,7 +69,9 @@ public class StreamviewerController extends BorderPane implements PropertyChange
         lblDonatie.setText("");
         lblDonatie.setWrapText(true);
         txtLeaderboard.setText("");
-        txtLeaderboard.setStyle(null);
+        txtLeaderboard.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
+        txtLeaderboard.setFont(font1);
+        
     }
  
 

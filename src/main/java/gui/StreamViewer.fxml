@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="637.0" prefWidth="958.0" type="BorderPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="1151.0" type="BorderPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -33,24 +33,24 @@
                <children>
                   <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <children>
-                        <Label layoutX="7.0" layoutY="4.0" text="Donaties leaderboard">
+                        <Label layoutX="14.0" layoutY="4.0" text="Donaties leaderboard">
                            <font>
                               <Font name="Segoe UI Black" size="15.0" />
                            </font>
                         </Label>
-                        <TextArea fx:id="txtLeaderboard" editable="false" layoutX="7.0" layoutY="50.0" prefHeight="260.0" prefWidth="204.0" text="1) Maximffffffffffffffff      100&#10;1) Maxim 100&#10;1) Maxim 100&#10;1) Maxim 100&#10;1) Maxim 100&#10;1) Maxim 100&#10;1) Maxim 100">
+                        <TextArea fx:id="txtLeaderboard" editable="false" layoutX="7.0" layoutY="50.0" prefHeight="260.0" prefWidth="277.0" text="1) Maximffffffffffffffff      100&#10;1) Maxim 100&#10;1) Maxim 100&#10;1) Maxim 100&#10;1) Maxim 100&#10;1) Maxim 100&#10;1) Maxim 100">
                            <font>
-                              <Font name="Segoe UI Bold Italic" size="12.0" />
+                              <Font name="Consolas Bold" size="12.0" />
                            </font>
                         </TextArea>
-                        <Label layoutX="14.0" layoutY="25.0" prefHeight="15.0" prefWidth="190.0" text="nr    Naam                          Coins">
+                        <Label layoutX="14.0" layoutY="25.0" prefHeight="15.0" prefWidth="234.0" text="nr    Naam                                         Coins">
                            <font>
                               <Font name="Segoe UI Bold" size="12.0" />
                            </font>
                         </Label>
                      </children>
                   </Pane>
-                  <Pane prefHeight="124.0" prefWidth="236.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                  <Pane prefHeight="124.0" prefWidth="279.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
                      <children>
                         <Label fx:id="lblAantalViewwers" layoutX="81.0" layoutY="54.0" text="aantal viewers: ">
                            <font>
