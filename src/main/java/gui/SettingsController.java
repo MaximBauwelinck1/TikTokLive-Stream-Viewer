@@ -14,11 +14,17 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import utils.BackgroundType;
 
 public class SettingsController extends AnchorPane{
     private DomeinController dc;
@@ -48,6 +54,7 @@ public class SettingsController extends AnchorPane{
       view.setFitWidth(30);
       btnBack.setText(null);
       btnBack.setGraphic(view);
+      btnBack.setId("btnBack");
         btnBack.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         btnBack.setStyle("-fx-background-color: transparent; " +  // No background color
         "-fx-border-color: transparent; " +     // No border color
@@ -58,10 +65,16 @@ public class SettingsController extends AnchorPane{
         choiselanguage.getItems().addAll("Nederlands", "English");
         radioBackgroundColor.setOnAction(this::handleClickRadioColor);
         radioBackgroundImage.setOnAction(this::handleClickRadioImage);
+        colorPicker.setOnAction(this::handleColorChange);
 
         radioBackgroundColor.setSelected(true);
         choiselanguage.setOnAction(this::handleLanguegeChange);
         initializeLanguage();
+        if(dc.getBackgroundType() == BackgroundType.COLOR){
+            Platform.runLater(() -> {
+                initializeColor();
+                });
+        }
     }
 
     public void initializeLanguage(){
@@ -98,9 +111,34 @@ public class SettingsController extends AnchorPane{
 
     public void handleClickRadioColor(ActionEvent e){
        colorPicker.setDisable(false);
+       dc.setBackgroundType(BackgroundType.COLOR);
+    }
+    public void initializeColor(){
+        handleColorUpdate(dc.getBackgroundColor(), dc.getTextColor());
+    }
+    public void handleColorUpdate(Color background, Color text){ 
+        this.setBackground(new Background(new BackgroundFill(
+           background,  
+            CornerRadii.EMPTY, 
+            null               
+        )));
+        String hexColor = String.format("#%02x%02x%02x", 
+        (int) (text.getRed() * 255),
+        (int) (text.getGreen() * 255),
+        (int) (text.getBlue() * 255)
+    );
+        this.getChildren().stream().filter(el -> el instanceof Labeled && !el.getId().equals("btnBack")) // check if element has an label
+        .forEach(el -> el.setStyle("-fx-text-fill:" + hexColor+ ";"));
+
+    }
+    public void handleColorChange( ActionEvent e){
+        dc.setBackgroundColor(colorPicker.getValue());
+        dc.setBackgroundType(BackgroundType.COLOR);
+        handleColorUpdate(dc.getBackgroundColor(), dc.getTextColor());
     }
     public void handleClickRadioImage(ActionEvent e){
         colorPicker.setDisable(true);
+        dc.setBackgroundType(BackgroundType.IMAGE);
     }
     public void handleLanguegeChange(ActionEvent e){
        if(choiselanguage.getValue() == "English"){

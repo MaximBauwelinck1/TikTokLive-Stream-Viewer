@@ -5,7 +5,6 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -14,8 +13,11 @@ import java.util.stream.Collectors;
 import DTO.DonatieDTO;
 import io.github.jwdeveloper.tiktok.data.events.gift.TikTokGiftEvent;
 import io.github.jwdeveloper.tiktok.data.models.users.User;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.util.Pair;
 import language.LocaleCode;
+import utils.BackgroundType;
 
 public class DomeinController implements PropertyChangeListener {
     private static DomeinController instance;
@@ -25,6 +27,7 @@ public class DomeinController implements PropertyChangeListener {
     TreeMap<Integer, List<User>> leaderboard = new TreeMap<>();
     private LocaleCode l;
     private SettingsRepository strp;
+    private GuiSettings GUISettings;
     public static DomeinController getInstance()
     {
     	if(instance == null)
@@ -40,6 +43,8 @@ public class DomeinController implements PropertyChangeListener {
        l = new LocaleCode();
        strp = new SettingsRepository();
        initializeLanguageFromSettings();
+       GUISettings = new GuiSettings();
+       initializeGuiSettings();
     }
 
     public void initializeLanguageFromSettings(){
@@ -48,6 +53,46 @@ public class DomeinController implements PropertyChangeListener {
         l.setTaal(locale.getKey(), locale.getKey());
       }
     }
+
+    public void initializeGuiSettings(){
+      BackgroundType type = strp.getBackgroundType();
+      if(type == null) type = BackgroundType.COLOR;
+      Color Background = strp.getBackgroundColor();
+      if(Background == null) Background = Color.BLACK;
+      Color text = strp.gettextColor();
+      if(text == null) text = Color.WHITE;
+
+      GUISettings.setBackgroundColor(Background);
+      GUISettings.setBackgroundType(type);
+    }
+
+    public void setBackgroundColor(Color color){
+      GUISettings.setBackgroundColor(color);
+      strp.saveBackgroundColor(GUISettings.getBackgroundColor(), GUISettings.getTextColor());
+    }
+    public void setBackgroundImage(Image img){
+      GUISettings.setBackgroundImage(img);
+    }
+    public void setBackgroundType(BackgroundType type){
+      GUISettings.setBackgroundType(type);
+      strp.saveBackgroundType(type);
+    }
+
+    public BackgroundType getBackgroundType(){
+        return GUISettings.getBackgroundType();
+    }
+
+    public Color getBackgroundColor(){
+        return GUISettings.getBackgroundColor();
+    }
+    public Color getTextColor(){
+        return GUISettings.getTextColor();
+    }
+
+    public Image getBackgroundImage(){
+        return GUISettings.getBackgroundImage();
+    }
+
     private void savelanguage(String language, String country){
       strp.saveLanguage(language, country);
     }
