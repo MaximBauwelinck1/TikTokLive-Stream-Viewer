@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 import DTO.DonatieDTO;
 import io.github.jwdeveloper.tiktok.data.events.gift.TikTokGiftEvent;
 import io.github.jwdeveloper.tiktok.data.models.users.User;
+import javafx.util.Pair;
+import language.LocaleCode;
 
 public class DomeinController implements PropertyChangeListener {
     private static DomeinController instance;
@@ -21,6 +23,8 @@ public class DomeinController implements PropertyChangeListener {
 	  private TikTokController tk;
     private Queue<Donatie> donaties;
     TreeMap<Integer, List<User>> leaderboard = new TreeMap<>();
+    private LocaleCode l;
+    private SettingsRepository strp;
     public static DomeinController getInstance()
     {
     	if(instance == null)
@@ -33,6 +37,39 @@ public class DomeinController implements PropertyChangeListener {
        tk = new TikTokController();
        donaties = new LinkedList<>();
        addPropertyChangeListener(this);
+       l = new LocaleCode();
+       strp = new SettingsRepository();
+       initializeLanguageFromSettings();
+    }
+
+    public void initializeLanguageFromSettings(){
+      Pair<String, String> locale = strp.getLanguage();
+      if(locale != null){
+        l.setTaal(locale.getKey(), locale.getKey());
+      }
+    }
+    private void savelanguage(String language, String country){
+      strp.saveLanguage(language, country);
+    }
+    public void setTaal(String lang, String country)
+    {
+    	l.setTaal(lang, country);
+      savelanguage(lang, country);
+    }
+
+    public Pair<String,String> getTaal()
+    {
+    	Pair<String, String> locale = strp.getLanguage();
+      if(locale != null){
+       return locale;
+      } else{
+        return new Pair<String,String>("nl", "BE");
+      }
+    }
+    
+    public String vertaalStrings(String keyword)
+    {
+    	return l.vertaalStrings(keyword);
     }
 
     public void setStreamerId(String id){

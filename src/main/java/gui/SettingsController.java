@@ -2,6 +2,7 @@ package gui;
 
 import java.io.IOException;
 
+
 import domein.DomeinController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,6 +23,10 @@ import javafx.stage.Stage;
 public class SettingsController extends AnchorPane{
     private DomeinController dc;
 
+    @FXML
+    Label lblChooseBackgroundOption;
+    @FXML
+    Label lblChooselanguage;
     @FXML
     Button btnBack;
     @FXML
@@ -54,6 +60,21 @@ public class SettingsController extends AnchorPane{
         radioBackgroundImage.setOnAction(this::handleClickRadioImage);
 
         radioBackgroundColor.setSelected(true);
+        choiselanguage.setOnAction(this::handleLanguegeChange);
+        initializeLanguage();
+    }
+
+    public void initializeLanguage(){
+        lblChooseBackgroundOption.setText(dc.vertaalStrings("SettingsschermKiesBackgroundOptie"));
+        lblChooselanguage.setText(dc.vertaalStrings("SettingsschermLanguagelabel"));
+        radioBackgroundColor.setText(dc.vertaalStrings("SettingsschermBackgroundColorlabel"));
+        radioBackgroundImage.setText(dc.vertaalStrings("SettingsschermBackgroundImagelabel"));
+
+        if(dc.getTaal().getKey().equals("nl")){
+            choiselanguage.setValue("Nederlands");
+        } else if(dc.getTaal().getKey().equals("en")){
+            choiselanguage.setValue("English");
+        }
     }
 
      private void loadFxmlScreen(String name) {
@@ -80,5 +101,13 @@ public class SettingsController extends AnchorPane{
     }
     public void handleClickRadioImage(ActionEvent e){
         colorPicker.setDisable(true);
+    }
+    public void handleLanguegeChange(ActionEvent e){
+       if(choiselanguage.getValue() == "English"){
+            dc.setTaal("en","US");
+       } else if(choiselanguage.getValue() == "Nederlands"){
+            dc.setTaal("nl","BE");
+       }
+       initializeLanguage();
     }
 }

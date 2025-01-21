@@ -36,9 +36,18 @@ public class StartschermController extends AnchorPane {
         btnSettings.setOnAction(this::goToSettingsPage);
         comboBox.getItems().addAll("--this will later be customizable--");
         comboBox.setEditable(true);
+        initializelanguage();
 
     }
 
+    public void initializelanguage()
+    {
+        comboBox.setPromptText(dc.vertaalStrings("StartschermComboboxPlaceholder"));
+        lblMainTitle.setText(dc.vertaalStrings("StartschermTitel"));
+        lblSelect.setText(dc.vertaalStrings("StartschermStreamerLabel"));
+        btnStart.setText(dc.vertaalStrings("StartschermStartKnop"));
+        btnSettings.setText(dc.vertaalStrings("StartschermSettingsKnop"));
+    }
      private void loadFxmlScreen(String name) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(name));
 		loader.setRoot(this);
