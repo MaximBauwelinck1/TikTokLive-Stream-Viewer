@@ -24,6 +24,8 @@ public class StartschermController extends AnchorPane {
     @FXML
     Button btnStart;
     @FXML
+    Button btnSettings;
+    @FXML
     ComboBox<String> comboBox;
 
     public StartschermController(DomeinController dc){
@@ -31,6 +33,7 @@ public class StartschermController extends AnchorPane {
     
        loadFxmlScreen("StartupScreen.fxml");
         btnStart.setOnAction(this::handleStart);
+        btnSettings.setOnAction(this::goToSettingsPage);
         comboBox.getItems().addAll("--this will later be customizable--");
         comboBox.setEditable(true);
 
@@ -72,6 +75,15 @@ public class StartschermController extends AnchorPane {
     	stage.setScene(new Scene(ssc));
         stage.setWidth(1200); // bounds.getWidth()
         stage.setHeight(850);
+    	stage.show();
+    }
+
+    public void goToSettingsPage(ActionEvent e){
+    	SettingsController ssc = new SettingsController( this.dc);
+    	Stage stage = (Stage) this.getScene().getWindow();
+    	stage.setScene(new Scene(ssc));
+        stage.setWidth(625); 
+        stage.setHeight(420);
     	stage.show();
     }
 }

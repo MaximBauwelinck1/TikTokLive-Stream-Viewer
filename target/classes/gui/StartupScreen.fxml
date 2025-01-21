@@ -19,7 +19,12 @@
             <Font name="Segoe UI Black" size="16.0" />
          </font>
       </Label>
-      <Button fx:id="btnStart" layoutX="274.0" layoutY="195.0" mnemonicParsing="false" text="Start" AnchorPane.leftAnchor="274.0" AnchorPane.topAnchor="195.0">
+      <Button fx:id="btnStart" layoutX="274.0" layoutY="195.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="81.0" text="Start" AnchorPane.leftAnchor="274.0" AnchorPane.topAnchor="195.0">
+         <font>
+            <Font name="Segoe UI Black" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnSettings" layoutX="274.0" layoutY="242.0" mnemonicParsing="false" text="Settings">
          <font>
             <Font name="Segoe UI Black" size="15.0" />
          </font>
