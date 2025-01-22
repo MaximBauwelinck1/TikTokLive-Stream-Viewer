@@ -18,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Pair;
 import language.LocaleCode;
 import utils.BackgroundType;
+import domein.Donatie;
 
 public class DomeinController implements PropertyChangeListener {
     private static DomeinController instance;
