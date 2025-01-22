@@ -37,5 +37,10 @@
       </Label>
       <ChoiceBox fx:id="choiselanguage" layoutX="293.0" layoutY="231.0" prefWidth="150.0" />
       <ColorPicker fx:id="colorPicker" layoutX="305.0" layoutY="150.0" />
+      <Button fx:id="btnKiesFoto" layoutX="305.0" layoutY="188.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="Button">
+         <font>
+            <Font name="Segoe UI Black" size="12.0" />
+         </font>
+      </Button>
    </children>
 </fx:root>

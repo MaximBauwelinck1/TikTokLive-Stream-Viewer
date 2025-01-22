@@ -17,8 +17,8 @@ public class GuiSettings {
     public void setBackgroundType(BackgroundType type){
         guiBackground.setBackgroundType(type);
     }
-    public void setBackgroundImage(Image img){
-        guiBackground.setBackgroundImage(img);
+    public void setBackgroundImage(String path){
+        guiBackground.setBackgroundImage(path);
     }
 
     public BackgroundType getBackgroundType(){
@@ -31,8 +31,11 @@ public class GuiSettings {
     public Color getTextColor(){
         return guiBackground.getTextColor();
     }
+    public Color getTextColorForImage(){
+        return guiBackground.getTextColorForImage();
+    }
 
-    public Image getBackgroundImage(){
+    public String getBackgroundImagePath(){
         return guiBackground.getBackgroundImage();
     }
 }

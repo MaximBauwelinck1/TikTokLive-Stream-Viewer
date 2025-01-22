@@ -60,6 +60,14 @@ public class SettingsRepository {
         return BackgroundType.valueOf(type);
     }
 
+    public void setBackgroundImage(String path){
+        mapper.setSetting("backgroundImagePath", path);
+        saveSettings();
+    }
+    public String getBackgroundImagePath(){
+        return mapper.getSetting("backgroundImagePath");
+    }
+    
     private void saveSettings(){
         mapper.saveSettings();
     }

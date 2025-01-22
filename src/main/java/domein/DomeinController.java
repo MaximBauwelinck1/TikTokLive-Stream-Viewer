@@ -64,14 +64,16 @@ public class DomeinController implements PropertyChangeListener {
 
       GUISettings.setBackgroundColor(Background);
       GUISettings.setBackgroundType(type);
+      GUISettings.setBackgroundImage(strp.getBackgroundImagePath());
     }
 
     public void setBackgroundColor(Color color){
       GUISettings.setBackgroundColor(color);
       strp.saveBackgroundColor(GUISettings.getBackgroundColor(), GUISettings.getTextColor());
     }
-    public void setBackgroundImage(Image img){
-      GUISettings.setBackgroundImage(img);
+    public void setBackgroundImage(String path){
+      GUISettings.setBackgroundImage(path);
+      strp.setBackgroundImage(path);
     }
     public void setBackgroundType(BackgroundType type){
       GUISettings.setBackgroundType(type);
@@ -88,9 +90,12 @@ public class DomeinController implements PropertyChangeListener {
     public Color getTextColor(){
         return GUISettings.getTextColor();
     }
+    public Color getTextColorForImage(){
+      return GUISettings.getTextColorForImage();
+  }
 
-    public Image getBackgroundImage(){
-        return GUISettings.getBackgroundImage();
+    public String getBackgroundImagePath(){
+        return GUISettings.getBackgroundImagePath();
     }
 
     private void savelanguage(String language, String country){
