@@ -1,15 +1,16 @@
-.text-area{
-    -fx-background-color: #fff, #fff;
-    -fx-background-color: -fx-control-inner-background;
-    -fx-background-insets: 0;
-    -fx-padding: 1 3 1 3;
-    -fx-focus-color: transparent;
+.text-area {
+    -fx-background-color: transparent;
 }
 
-.text-area .content {
-    -fx-background-color: #fff;
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
 }
 
-.text-area:focused .content {
-    -fx-background-color: #fff;
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
 }

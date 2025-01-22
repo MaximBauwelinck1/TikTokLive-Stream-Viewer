@@ -94,7 +94,7 @@ public class StreamviewerController extends BorderPane implements PropertyChange
         lblDonatie.setText("");
         lblDonatie.setWrapText(true);
         txtLeaderboard.setText("");
-        txtLeaderboard.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
+        //txtLeaderboard.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
         txtLeaderboard.setFont(font1);
         
     }
