@@ -50,7 +50,7 @@ public class DomeinController implements PropertyChangeListener {
     public void initializeLanguageFromSettings(){
       Pair<String, String> locale = strp.getLanguage();
       if(locale != null){
-        l.setTaal(locale.getKey(), locale.getKey());
+        l.setTaal(locale.getKey(), locale.getValue());
       }
     }
 
@@ -135,7 +135,7 @@ public class DomeinController implements PropertyChangeListener {
       donaties.add(don);
     }
 
-    public String getTopTienVanLeaderboard(){
+    public String getTopTienVanLeaderboardZonderCoins(){
       StringBuilder str = new StringBuilder();
       final AtomicInteger rank = new AtomicInteger(1);
       final AtomicInteger counter = new AtomicInteger(LENGTE_LEADERBOARD);
@@ -147,7 +147,22 @@ public class DomeinController implements PropertyChangeListener {
         } else {
             naamuser = String.format("%-27s", naamuser); // Pad de naam met whitespace rechts
         }
-          str.append(String.format("%d %s %d %n",rank.get(), naamuser,e.getKey()));
+          str.append(String.format("%d %s %n",rank.get(), naamuser));
+          counter.decrementAndGet();
+        }
+      });
+      rank.incrementAndGet();
+    });
+    return str.toString();
+    }
+
+    public String getTopTienVanLeaderboardAlleenCoins(){
+      StringBuilder str = new StringBuilder();
+      final AtomicInteger rank = new AtomicInteger(1);
+      final AtomicInteger counter = new AtomicInteger(LENGTE_LEADERBOARD);
+      leaderboard.entrySet().stream().sorted((e1, e2) -> e2.getKey().compareTo(e1.getKey())).forEachOrdered(e->{e.getValue().forEach(user->{
+        if(counter.get()>0){
+          str.append(String.format("%d %n",e.getKey()));
           counter.decrementAndGet();
         }
       });
@@ -164,10 +179,6 @@ public class DomeinController implements PropertyChangeListener {
     }
     private void handleLeaderBoardUpdate(TikTokGiftEvent ev){
       if (leaderboard.values().stream().flatMap(List::stream).map(User::getId).collect(Collectors.toList()).contains(ev.getUser().getId())){ // in case somebody donated who is already on the leaderboard
-        System.out.println("HEEFT AL GEDONEERD!!");
-        System.out.println(ev.getUser().getProfileName());
-        System.out.println("HEEFT AL GEDONEERD!!");
-        System.out.println("HEEFT AL GEDONEERD!!");
         int rank = leaderboard.entrySet().stream().filter(e->{
          // e.getValue().stream().flatMap(List::stream).map(User::getId).collect(Collectors.toList()).contains(ev.getUser().getId());
           if(e.getValue().stream().map(User::getId).collect(Collectors.toList()).contains(ev.getUser().getId())){

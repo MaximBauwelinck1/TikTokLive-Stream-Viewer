@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -50,11 +51,17 @@ public class StreamviewerController extends BorderPane implements PropertyChange
      Label lblRoomId;
     @FXML
      Label lblDonatie;
+     @FXML
+     Label lblDonatiesTitel;
 
     @FXML
      ImageView imageDonatieUser;
     @FXML
      TextArea txtLeaderboard;
+    @FXML
+    TextArea txtLeaderboardCoins;
+    @FXML
+    Label lblDonatieskolommen;
 
     private Boolean toontDonatie = false;
     public StreamviewerController(DomeinController dc){
@@ -73,6 +80,7 @@ public class StreamviewerController extends BorderPane implements PropertyChange
                 intializeBackgroundPhoto();
                 });
         }
+        initializelanguage();
     }
        private void loadFxmlScreen(String name, DomeinController dc) {
        //Courier_Prime_Bold.ttf
@@ -92,27 +100,40 @@ public class StreamviewerController extends BorderPane implements PropertyChange
         lblAantalLikes.setText( "aantal likes: 0");
         lblRoomId.setText("room ID: 0");
         lblDonatie.setText("");
+        txtLeaderboardCoins.setText("");
         lblDonatie.setWrapText(true);
         txtLeaderboard.setText("");
         //txtLeaderboard.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
-        txtLeaderboard.setFont(font1);
-        
+       // txtLeaderboard.setFont(font1);
+        //txtLeaderboardCoins.setFont(font1);
     }
  
+    public void initializelanguage()
+    {
+        lblAantalViewwers.setText(dc.vertaalStrings("aantalViewers"));
+        lblAantalLikes.setText(dc.vertaalStrings("aantalLikes"));
+        lblRoomId.setText(dc.vertaalStrings("roomID"));
+        lblDonatiesTitel.setText(dc.vertaalStrings("donatiesLeaderboard"));
+        lblDonatiesTitel.setText(dc.vertaalStrings("donatiesLeaderboard"));
+        lblDonatiesTitel.setText(dc.vertaalStrings("donatiesLeaderboard"));
+        lblDonatiesTitel.setText(dc.vertaalStrings("donatiesLeaderboard"));
+        lblDonatieskolommen.setText(String.format("%s    %s                                         %s",
+         dc.vertaalStrings("nr"),dc.vertaalStrings("naam"),dc.vertaalStrings("Coins")));
+    }
 
      @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if(evt.getPropertyName().equals("aantalViewers")){
              Platform.runLater(() -> {
-            lblAantalViewwers.setText(String.format("aantal kijkers: %s", evt.getNewValue()));
+            lblAantalViewwers.setText(String.format("%s %s",dc.vertaalStrings("aantalViewers"), evt.getNewValue()));
         });
         } else if(evt.getPropertyName().equals("aantalLikes")){
             Platform.runLater(() -> {
-           lblAantalLikes.setText(String.format("aantal likes: %s", evt.getNewValue()));
+           lblAantalLikes.setText(String.format("%s %s",dc.vertaalStrings("aantalLikes"), evt.getNewValue()));
        });
        }else if(evt.getPropertyName().equals("roomId")){
             Platform.runLater(() -> {
-            lblRoomId.setText(String.format("room ID: %s", evt.getNewValue()));
+            lblRoomId.setText(String.format("%s %s",dc.vertaalStrings("roomID"), evt.getNewValue()));
         });
         }
     }
@@ -121,7 +142,7 @@ public class StreamviewerController extends BorderPane implements PropertyChange
     DonatieDTO donatie = dc.getDonatie();
 
     // Update label and image
-    lblDonatie.setText(String.format("%s heeft een %s gedoneerd!", donatie.fromUser(), donatie.nameGift()));
+    lblDonatie.setText(String.format(dc.vertaalStrings("donatiePopup"), donatie.fromUser(), donatie.nameGift()));
     imageDonatieUser.setImage(ImageConverter.convertToFxImage(donatie.userPicture()));
 
     // Create fade-in transition for label
@@ -166,7 +187,8 @@ public class StreamviewerController extends BorderPane implements PropertyChange
 }
     @Override
     public void handleDonate() {
-        txtLeaderboard.setText(dc.getTopTienVanLeaderboard());
+        txtLeaderboard.setText(dc.getTopTienVanLeaderboardZonderCoins());
+        txtLeaderboardCoins.setText(dc.getTopTienVanLeaderboardAlleenCoins());
        if(!dc.isDonatiesEmpty()&& !toontDonatie){
         toontDonatie= true;
         Platform.runLater(() -> {
@@ -204,17 +226,17 @@ public class StreamviewerController extends BorderPane implements PropertyChange
         setFontColor(dc.getTextColorForImage());
     }
 
-    private void applyFontColorRecursively(Parent parent, String hexColor) {
-        for (Node child : parent.getChildrenUnmodifiable()) {
-            if (child instanceof Labeled) {
-                // If it's a labeled node, apply the style
-                ((Labeled) child).setStyle("-fx-text-fill:" + hexColor + ";");
-            } else if (child instanceof Parent) {
-                // If it's a container, recursively process its children
-                applyFontColorRecursively((Parent) child, hexColor);
-            }
+   private void applyFontColorRecursively(Parent parent, String hexColor) {
+    for (Node child : parent.getChildrenUnmodifiable()) {
+        if (child instanceof Labeled) {
+            ((Labeled) child).setStyle("-fx-text-fill:" + hexColor + ";");
+        } else if (child instanceof TextInputControl) {
+            ((TextInputControl) child).setStyle("-fx-text-fill:" + hexColor + ";");
+        } else if (child instanceof Parent) {
+            applyFontColorRecursively((Parent) child, hexColor);
         }
     }
+}
     public void setColors(Color background, Color text){ 
         this.setBackground(new Background(new BackgroundFill(
            background,  

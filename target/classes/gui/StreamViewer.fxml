@@ -33,21 +33,26 @@
                <children>
                   <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <children>
-                        <Label layoutX="14.0" layoutY="4.0" text="Donaties leaderboard">
+                        <Label fx:id="lblDonatiesTitel" layoutX="14.0" layoutY="4.0" text="Donaties leaderboard">
                            <font>
                               <Font name="Segoe UI Black" size="15.0" />
                            </font>
                         </Label>
-                        <TextArea fx:id="txtLeaderboard"  editable="false" layoutX="7.0" layoutY="50.0" prefHeight="260.0" prefWidth="277.0" text="1) Maximffffffffffffffff      100&#10;1) Maxim 100&#10;1) Maxim 100&#10;1) Maxim 100&#10;1) Maxim 100&#10;1) Maxim 100&#10;1) Maxim 100">
+                        <TextArea fx:id="txtLeaderboard" editable="false" layoutX="7.0" layoutY="50.0" prefHeight="260.0" prefWidth="210.0" text="1) Maximffffffffffffffff &#10;1) Maxim 100&#10;1) Maxim 100&#10;1) Maxim 100&#10;1) Maxim 100&#10;1) Maxim 100&#10;1) Maxim 100">
                            <font>
-                              <Font name="Consolas Bold" size="12.0" />
+                              <Font name="Segoe UI Black" size="12.0" />
                            </font>
                         </TextArea>
-                        <Label layoutX="14.0" layoutY="25.0" prefHeight="15.0" prefWidth="234.0" text="nr    Naam                                         Coins">
+                        <Label fx:id="lblDonatieskolommen" layoutX="14.0" layoutY="25.0" prefHeight="15.0" prefWidth="234.0" text="nr    Naam                                         Coins">
                            <font>
                               <Font name="Segoe UI Bold" size="12.0" />
                            </font>
                         </Label>
+                        <TextArea fx:id="txtLeaderboardCoins" editable="false" layoutX="216.0" layoutY="50.0" prefHeight="260.0" prefWidth="77.0" text="100&#10;100&#10;100&#10;100">
+                           <font>
+                              <Font name="Segoe UI Black" size="12.0" />
+                           </font>
+                        </TextArea>
                      </children>
                   </Pane>
                   <Pane prefHeight="124.0" prefWidth="279.0" GridPane.columnIndex="3" GridPane.rowIndex="4">

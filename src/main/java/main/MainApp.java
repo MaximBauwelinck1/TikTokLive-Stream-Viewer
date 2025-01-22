@@ -1,6 +1,7 @@
 package main;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -35,7 +36,10 @@ public class MainApp extends Application {
         
         Scene scene = new Scene(welkomScherm);
         scene.setFill(Color.RED);
-        
+        primaryStage.setOnCloseRequest(event -> {
+        Platform.exit(); 
+        System.exit(0);  // om alle treads te stoppen
+        });
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
