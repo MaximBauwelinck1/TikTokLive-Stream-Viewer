@@ -20,6 +20,7 @@ public class GuiBackground {
     }
     public void setBackgroundImage(String img){
         this.backgroundImagePath = img;
+        if(img == null) return ;
         this.textColorForImage = Color.web(GuiBackground.calcultaeFontColorForBackImg(new File(img)));
     }
 
