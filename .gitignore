@@ -28,3 +28,6 @@ output
 target
 build
 jre-23
+jdk23
+launc4j.xml
+jar
