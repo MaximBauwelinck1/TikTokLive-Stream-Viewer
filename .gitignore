@@ -26,3 +26,5 @@ replay_pid*
 *.properties
 output
 target
+build
+jre-23
