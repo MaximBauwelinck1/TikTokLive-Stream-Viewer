@@ -44,7 +44,7 @@ public class StartschermController extends AnchorPane {
     public StartschermController(DomeinController dc){
       this.dc = dc;
     
-       loadFxmlScreen("StartupScreen.fxml");
+       loadFxmlScreen("/gui/StartupScreen.fxml");
         btnStart.setOnAction(this::handleStart);
         btnSettings.setOnAction(this::goToSettingsPage);
         comboBox.getItems().addAll("--this will later be customizable--");
@@ -60,6 +60,8 @@ public class StartschermController extends AnchorPane {
                 intializeBackgroundPhoto();
                 });
         }
+        System.out.println("Home page pane initialized");
+
     }
 
     public void intializeBackgroundPhoto(){
@@ -67,6 +69,7 @@ public class StartschermController extends AnchorPane {
        setBackgroundPhoto(file);
     }
     public void initializeColor(){
+        System.out.println(dc.getBackgroundColor() +"TEST"+ dc.getTextColor());
         setColors(dc.getBackgroundColor(), dc.getTextColor());
     }
     public void initializelanguage()
@@ -117,7 +120,7 @@ public class StartschermController extends AnchorPane {
     }
 
     public void goToSettingsPage(ActionEvent e){
-    	SettingsController ssc = new SettingsController( this.dc);
+    	SettingsController ssc = new SettingsController( this.dc,this);
     	Stage stage = (Stage) this.getScene().getWindow();
     	stage.setScene(new Scene(ssc));
         stage.setWidth(625); 
@@ -129,10 +132,11 @@ public class StartschermController extends AnchorPane {
         String hexColor = String.format("#%02x%02x%02x", 
         (int) (c.getRed() * 255),
         (int) (c.getGreen() * 255),
-        (int) (c.getBlue() * 255)
-    );
+        (int) (c.getBlue() * 255) );
+        Platform.runLater(() -> {
         this.getChildren().stream().filter(el -> el instanceof Labeled && !el.getId().equals("btnBack")) // check if element has an label
         .forEach(el -> el.setStyle("-fx-text-fill:" + hexColor+ ";"));
+        });
     }
 
     public void setBackgroundPhoto(File file){
@@ -142,25 +146,31 @@ public class StartschermController extends AnchorPane {
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
                 BackgroundSize.DEFAULT);
+                Platform.runLater(() -> {
         this.setBackground(new Background(backgroundImage));
+                });
         System.out.println(dc.getTextColorForImage());
         setFontColor(dc.getTextColorForImage());
     }
 
     public void setColors(Color background, Color text){ 
-        this.setBackground(new Background(new BackgroundFill(
-           background,  
-            CornerRadii.EMPTY, 
-            null               
-        )));
-        this.getChildren().stream().filter(child -> child instanceof Button)
-        .forEach(child -> {
-            Button button = (Button) child;
-            button.setBackground(new Background(new BackgroundFill(
-                background.brighter().brighter(),  
-                 new CornerRadii(5), 
-                 null               
-             )));
+            Platform.runLater(() -> {
+                this.setBackground(new Background(new BackgroundFill(
+                    background,  
+                    CornerRadii.EMPTY, 
+                    null               
+                )));
+                
+        
+            this.getChildren().stream().filter(child -> child instanceof Button)
+            .forEach(child -> {
+                Button button = (Button) child;
+                button.setBackground(new Background(new BackgroundFill(
+                    background.brighter().brighter(),  
+                    new CornerRadii(5), 
+                    null               
+                )));
+            });
         });
         setFontColor(text);
     }

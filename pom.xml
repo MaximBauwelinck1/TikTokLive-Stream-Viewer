@@ -1,125 +1,38 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.example</groupId>
-  <artifactId>Tiktok-Stream-viewer</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  
-  <properties>
-		<maven.compiler.source>23</maven.compiler.source>
-		<maven.compiler.target>23</maven.compiler.target>
-	</properties>
-		<build>
-		<plugins>
-			<plugin>
-				<groupId>org.panteleyev</groupId>
-				<artifactId>jpackage-maven-plugin</artifactId>
-				<version>1.6.5</version> 
-				<executions>
-					<execution>
-						<id>package</id>
-						<goals>
-							<goal>jpackage</goal>
-						</goals> 
-					</execution>
-				</executions>
-				<configuration>
-					<mainClass>main.MainApp</mainClass> <!-- Replace with your main class -->
-					<appName>MyApp</appName>
-					<vendor>MyCompany</vendor>
-					<runtimeImage>${project.build.directory}/runtime</runtimeImage>
-					<outputDirectory>${project.build.directory}/installer</outputDirectory>
-					<mainJar>${project.build.finalName}.jar</mainJar>
-				</configuration>
-			</plugin>
-			<plugin>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-maven-plugin</artifactId>
-			<version>0.0.8</version>
-			<executions>
-				<execution>
-					<id>create-runtime</id>
-					<goals>
-						<goal>jlink</goal>
-					</goals>
-					<configuration>
-						<output>${project.build.directory}/runtime</output>
-						<addModules>javafx.controls</addModules>
-					</configuration>
-				</execution>
-			</executions>
-		</plugin>
-		<plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <version>3.4.2</version>
-            <configuration>
-                <descriptors>
-                    <descriptor>src/main/assembly/zip.xml</descriptor>
-                </descriptors>
-            </configuration>
-            <executions>
-                <execution>
-                    <id>make-zip</id>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>single</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-		</plugins>
-	</build>
-
- <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-    </repositories>
-	<dependencies>
-
-		<!-- Lombok-->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.34</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!--JavaFX-->
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-controls</artifactId>
-			<version>22.0.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-graphics</artifactId>
-			<version>22.0.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-fxml</artifactId>
-			<version>22.0.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-base</artifactId>
-			<version>22.0.2</version>
-		</dependency>
-
-		   <dependency>
-            <groupId>com.github.jwdeveloper.TikTok-Live-Java</groupId>
-            <artifactId>API</artifactId>
-             <version>1.8.13-Release</version>
-            <scope>compile</scope>
-        </dependency>
-		<dependency>
-            <groupId>com.github.jwdeveloper.TikTok-Live-Java</groupId>
-            <artifactId>Client</artifactId>
-             <version>1.8.13-Release</version>
-            <scope>compile</scope>
-        </dependency>
-	</dependencies>
-  
-</project>
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>D:\TikTokLive-Stream-Viewer\target\Tiktok-Stream-viewer-0.0.1-SNAPSHOT.jar</jar>
+  <outfile>C:\TEST\launcher.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl></downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon>C:\Users\Maxim\Downloads\360_F_505689403_sDTeJMeXrBEorsCVkUrgACR4bjwURmg0.ico</icon>
+  <jre>
+    <path>%JAVA_HOME%;%PATH%</path>
+    <requiresJdk>false</requiresJdk>
+    <requires64Bit>false</requires64Bit>
+    <minVersion>22</minVersion>
+    <maxVersion></maxVersion>
+  </jre>
+  <versionInfo>
+    <fileVersion>0.0.0.1</fileVersion>
+    <txtFileVersion>Versie 1 Beta</txtFileVersion>
+    <fileDescription>an application to get event data from TikTok streams</fileDescription>
+    <copyright>MIT</copyright>
+    <productVersion>0.0.0.1</productVersion>
+    <txtProductVersion>Versie 1 Beta</txtProductVersion>
+    <productName>TikTok-Stream-Viewer</productName>
+    <companyName></companyName>
+    <internalName>Maxim B</internalName>
+    <originalFilename>launcher.exe</originalFilename>
+    <trademarks></trademarks>
+    <language>ENGLISH_US</language>
+  </versionInfo>
+</launch4jConfig>

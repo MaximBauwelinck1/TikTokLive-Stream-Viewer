@@ -19,7 +19,7 @@ public class GuiSettings {
     }
     public void setBackgroundImage(String path){
         guiBackground.setBackgroundImage(path);
-    }
+    } 
 
     public BackgroundType getBackgroundType(){
         return guiBackground.getBackgroundType();

@@ -52,10 +52,11 @@ public class SettingsController extends AnchorPane{
     ColorPicker colorPicker;
     @FXML
     Button btnKiesFoto;
-    public SettingsController(DomeinController dc){
+    private StartschermController startschermController;
+    public SettingsController(DomeinController dc, StartschermController startschermController){
       this.dc = dc;
-    
-       loadFxmlScreen("SettingsScreen.fxml");
+        this.startschermController = startschermController;
+       loadFxmlScreen("/gui/SettingsScreen.fxml");
        initializeLanguage();
        Image img = new Image(getClass().getResource("/icons/backArrow-white.png").toExternalForm());
       ImageView view = new ImageView(img);
@@ -70,7 +71,7 @@ public class SettingsController extends AnchorPane{
         "-fx-border-color: transparent; " +     // No border color
         "-fx-padding: 0;"); 
         btnBack.setOnAction(this::handleBackClick);
-        this.getStylesheets().add(getClass().getResource("/css/Settingspage.css").toExternalForm());
+        this.getStylesheets().add(getClass().getResource("/css/SettingsPage.css").toExternalForm());
 
         choiselanguage.getItems().addAll("Nederlands", "English");
         radioBackgroundColor.setOnAction(this::handleClickRadioColor);
@@ -158,16 +159,20 @@ public class SettingsController extends AnchorPane{
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
                 BackgroundSize.DEFAULT);
+                Platform.runLater(() -> {
         this.setBackground(new Background(backgroundImage));
+                });
         System.out.println(dc.getTextColorForImage());
         setFontColor(dc.getTextColorForImage());
     }
     public void setColors(Color background, Color text){ 
+        Platform.runLater(() -> {
         this.setBackground(new Background(new BackgroundFill(
            background,  
             CornerRadii.EMPTY, 
             null               
         )));
+        });
         setFontColor(text);
     }
 
@@ -175,10 +180,11 @@ public class SettingsController extends AnchorPane{
         String hexColor = String.format("#%02x%02x%02x", 
         (int) (c.getRed() * 255),
         (int) (c.getGreen() * 255),
-        (int) (c.getBlue() * 255)
-    );
+        (int) (c.getBlue() * 255));
+        Platform.runLater(() -> {
         this.getChildren().stream().filter(el -> el instanceof Labeled && !el.getId().equals("btnBack")) // check if element has an label
         .forEach(el -> el.setStyle("-fx-text-fill:" + hexColor+ ";"));
+        });
     }
     public void handleColorChange( ActionEvent e){
         dc.setBackgroundColor(colorPicker.getValue());

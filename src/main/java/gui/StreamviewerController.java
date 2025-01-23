@@ -66,7 +66,7 @@ public class StreamviewerController extends BorderPane implements PropertyChange
     private Boolean toontDonatie = false;
     public StreamviewerController(DomeinController dc){
 
-        loadFxmlScreen("StreamViewer.fxml", dc);
+        loadFxmlScreen("/gui/StreamViewer.fxml", dc);
         this.dc.addPropertyChangeListener(this);
         dc.addDonationObserver(this);
         this.getStylesheets().add(getClass().getResource("/css/Streamviewer.css").toExternalForm());
@@ -221,7 +221,9 @@ public class StreamviewerController extends BorderPane implements PropertyChange
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
                 BackgroundSize.DEFAULT);
+                Platform.runLater(() -> {
         this.setBackground(new Background(backgroundImage));
+                });
         System.out.println(dc.getTextColorForImage());
         setFontColor(dc.getTextColorForImage());
     }
@@ -229,15 +231,20 @@ public class StreamviewerController extends BorderPane implements PropertyChange
    private void applyFontColorRecursively(Parent parent, String hexColor) {
     for (Node child : parent.getChildrenUnmodifiable()) {
         if (child instanceof Labeled) {
+            Platform.runLater(() -> {
             ((Labeled) child).setStyle("-fx-text-fill:" + hexColor + ";");
+            });
         } else if (child instanceof TextInputControl) {
+            Platform.runLater(() -> {
             ((TextInputControl) child).setStyle("-fx-text-fill:" + hexColor + ";");
+            });
         } else if (child instanceof Parent) {
             applyFontColorRecursively((Parent) child, hexColor);
         }
     }
 }
     public void setColors(Color background, Color text){ 
+        Platform.runLater(() -> {
         this.setBackground(new Background(new BackgroundFill(
            background,  
             CornerRadii.EMPTY, 
@@ -252,6 +259,7 @@ public class StreamviewerController extends BorderPane implements PropertyChange
                  null               
              )));
         });
+    });
         setFontColor(text);
     }
 }
